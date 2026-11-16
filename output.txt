@@ -1,0 +1,75 @@
+=== Empty tree ===
+  [PASS] height of empty tree is -1
+  [PASS] search on empty tree returns false
+  [PASS] remove on empty tree returns false
+
+=== Insertion ===
+  inorder  : 10 20 25 30 40 50 60 65 70 80 85 90
+  preorder : 50 30 20 10 25 40 70 60 65 80 90 85
+  postorder: 10 25 20 40 30 65 60 85 90 80 70 50
+  height   : 4
+  [PASS] inorder is sorted after inserts
+  [PASS] duplicate insert (40) is rejected
+  [PASS] size still 12 after duplicate attempt
+
+=== Search ===
+  [PASS] search(65) present -> true
+  [PASS] search(99) absent  -> false
+
+=== Remove: Case 1, leaf (10) ===
+  [PASS] remove(10) returns true
+  inorder  : 20 25 30 40 50 60 65 70 80 85 90
+  preorder : 50 30 20 25 40 70 60 65 80 90 85
+  postorder: 25 20 40 30 65 60 85 90 80 70 50
+  height   : 4
+  [PASS] inorder still sorted, 10 gone
+  [PASS] search(10) now false
+
+=== Remove: Case 2, one child (60, has only right child 65) ===
+  [PASS] remove(60) returns true
+  inorder  : 20 25 30 40 50 65 70 80 85 90
+  preorder : 50 30 20 25 40 70 65 80 90 85
+  postorder: 25 20 40 30 65 85 90 80 70 50
+  height   : 4
+  [PASS] inorder still sorted, 60 gone
+  [PASS] 60 gone, its child 65 still present
+
+=== Remove: Case 3, two children (30; successor is 40) ===
+  [PASS] remove(30) returns true
+  inorder  : 20 25 40 50 65 70 80 85 90
+  preorder : 50 40 20 25 70 65 80 90 85
+  postorder: 25 20 40 65 85 90 80 70 50
+  height   : 4
+  [PASS] inorder still sorted, 30 gone
+  [PASS] 40 (inorder successor) took 30's position
+
+=== Remove: root with two children (50; successor is 65) ===
+  [PASS] remove(50) returns true
+  inorder  : 20 25 40 65 70 80 85 90
+  preorder : 65 40 20 25 70 80 90 85
+  postorder: 25 20 40 85 90 80 70 65
+  height   : 4
+  [PASS] inorder still sorted, 50 gone
+  [PASS] 65 is the new root
+
+=== Remove absent key ===
+  [PASS] remove(999) returns false, tree unchanged
+  [PASS] size still 8
+
+=== Edge case: worst-case (sorted inserts) height ===
+  height after inserting 1..10 in order: 9
+  [PASS] degenerate tree height is n-1 = 9
+
+=== Average vs worst case height (n = 1000) ===
+  random order inserts : height 23  (log2(1000) is about 10)
+  sorted order inserts : height 999  (n - 1 = 999)
+  [PASS] random-order tree height is O(log n)-sized
+  [PASS] sorted-order tree height is n - 1
+
+=== Randomized stress test vs sorted std::vector reference ===
+  [PASS] 5000 random insert/remove/search ops match reference
+
+=== Edge case: remove until empty ===
+  [PASS] tree empty after removing every key
+
+ALL TESTS PASSED
